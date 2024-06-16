@@ -1,0 +1,134 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Structure for a node
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
+
+// Function to insert a node at the beginning of the list
+void insertAtBeginning(Node** head, int data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->next = *head;
+    *head = newNode;
+}
+
+// Function to insert a node after a specified node
+void insertAfter(Node* prev, int data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->next = prev->next;
+    prev->next = newNode;
+}
+
+// Function to insert a node at the end of the list
+void insertAtEnd(Node** head, int data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    if (*head == NULL) {
+        *head = newNode;
+    } else {
+        Node* temp = *head;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}
+// Function to find an element in the list
+Node* findElement(Node* head, int data) {
+    while (head != NULL) {
+        if (head->data == data) {
+            return head;
+        }
+        head = head->next;
+    }
+    return NULL;
+}
+
+
+Department of Computer Science and Engineering, Rajalakshmi Engineering College
+
+
+Program:
+// Function to find the next node of a specified node
+Node* findNext(Node* node) {
+    return node->next;
+}
+
+// Function to find the previous node of a specified node
+Node* findPrevious(Node* head, Node* node) {
+    if (node == head) {
+        return NULL;
+    }
+    Node* temp = head;
+    while (temp->next != node) {
+        temp = temp->next;
+    }
+    return temp;
+}
+
+// Function to check if a node is the last node in the list
+int isLast(Node* node, Node* head) {
+    while (head->next != NULL) {
+        head = head->next;
+    }
+    return head == node;
+}
+
+// Function to check if the list is empty
+int isEmpty(Node* head) {
+    return head == NULL;
+}
+
+
+/
+
+// Function to delete a node from the beginning of the list
+void deleteFromBeginning(Node** head) {
+    Node* temp = *head;
+    *head = (*head)->next;
+    free(temp);
+}
+
+// Function to delete a node after a specified node
+void deleteAfter(Node* prev) {
+    Node* temp = prev->next;
+    prev->next = temp->next;
+    free(temp);
+}
+
+// Function to delete a node from the end of the list
+void deleteFromEnd(Node** head) {
+    if (*head == NULL) {
+        return;
+    }
+    if ((*head)->next == NULL) {
+        free(*head);
+        *head = NULL;
+        return;
+    }
+    Node* temp = *head;
+    while (temp->next->next != NULL) {
+        temp = temp->next;
+}
+    free(temp->next);
+    temp->next = NULL;
+}
+
+// Function to delete the entire list
+void deleteList(Node** head) {
+    Node* temp = *head;
+    while (temp != NULL) {
+        Node* next = temp->next;
+        free(temp);
+        temp = next;
+    }
+    *head = NULL;
+}
+
+// Function to display theelements of the list
+void display(Node* head) {
